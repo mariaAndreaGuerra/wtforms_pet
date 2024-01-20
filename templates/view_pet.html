@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ pet.name }} - Pet Details</title>
+</head>
+<body>
+    <h1>{{ pet.name }}</h1>
+    <p>Species: {{ pet.species }}</p>
+    {% if pet.photo_url %}
+        <img src="{{ pet.photo_url }}" alt="{{ pet.name }} photo">
+    {% endif %}
+    {% if pet.age %}
+        <p>Age: {{ pet.age }}</p>
+    {% endif %}
+
+    <h2>Edit Pet Information</h2>
+    <form method="POST" action="{{ url_for('view_pet', pet_id=pet.id) }}">
+        {{ form.csrf_token }}
+        {{ form.hidden_tag() }}
+        <label for="photo_url">Photo URL:</label>
+        {{ form.photo_url() }}
+        <br>
+        <label for="notes">Notes:</label>
+        {{ form.notes() }}
+        <br>
+        <label for="available">Available:</label>
+        {{ form.available() }}
+        <br>
+        <button type="submit">Save Changes</button>
+    </form>
+    <br>
+    <a href="{{ url_for('index') }}">Back to Homepage</a>
+</body>
+</html>
